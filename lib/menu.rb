@@ -1,4 +1,4 @@
-require 'base'
+require_relative 'base'
 
 module Dialog
 
@@ -12,7 +12,7 @@ module Dialog
   #   steps = Dialog::menu do |m|
   #     m.text "Bla bla"
   #     m.choice "/dev/hda1", "Backup partition /dev/hda1 using partimage"
-  #     m.choice "/dev/hda2", "Backup partition /dev/hda2 using dd" 
+  #     m.choice "/dev/hda2", "Backup partition /dev/hda2 using dd"
   #   end
   #
   # Box option syntax:
@@ -23,7 +23,7 @@ module Dialog
     def initialize(*options)
       @choices = []
       super *options
-      @options.box_options[3] ||= 0 # Default menu-height 
+      @options.box_options[3] ||= 0 # Default menu-height
     end
 
     # Adds a choice to the menu
@@ -38,7 +38,7 @@ module Dialog
     end
 
     def menu_height(v)
-     @options.box_options[3] = v 
+     @options.box_options[3] = v
     end
 
   end

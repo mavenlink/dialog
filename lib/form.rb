@@ -1,4 +1,4 @@
-require 'base'
+require_relative 'base'
 
 module Dialog
 

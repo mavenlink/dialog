@@ -1,5 +1,5 @@
-require 'base'
-require 'checklist'
+require_relative 'base'
+require_relative 'checklist'
 
 module Dialog
 

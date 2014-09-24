@@ -10,7 +10,29 @@ Gem::Specification.new do |s|
   DESC
   s.authors     = ['Martin Landers', 'Mavenlink']
   s.email       = ['elk@treibgut.net', 'dev+fork+dialog@mavenlink.com']
-  s.files       = ['lib/dialog.rb']
+  s.files       = %W{
+    lib/dialog.rb
+    lib/base.rb
+    lib/calendar.rb
+    lib/checklist.rb
+    lib/form.rb
+    lib/fselect.rb
+    lib/gauge.rb
+    lib/infobox.rb
+    lib/inputbox.rb
+    lib/inputmenu.rb
+    lib/menu.rb
+    lib/mixedform.rb
+    lib/msgbox.rb
+    lib/passwordbox.rb
+    lib/radiolist.rb
+    lib/tailbox.rb
+    lib/tailboxbg.rb
+    lib/textbox.rb
+    lib/timebox.rb
+    lib/util.rb
+    lib/yesno.rb
+  }
   s.homepage    = 'http://rubygems.org/gems/dialog'
   s.license     = 'MIT'
 end

@@ -1,5 +1,5 @@
-require 'base'
-require 'menu'
+require_relative 'base'
+require_relative 'menu'
 
 module Dialog
 

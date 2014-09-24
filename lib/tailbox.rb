@@ -1,5 +1,5 @@
-require 'base'
-require 'textbox'
+require_relative 'base'
+require_relative 'textbox'
 
 module Dialog
 

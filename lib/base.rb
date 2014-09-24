@@ -1,5 +1,5 @@
 require 'date'
-require 'util'
+require_relative 'util'
 
 # Module containing all dialog stuff, to avoid namespace clutter
 module Dialog
@@ -92,26 +92,28 @@ module Dialog
       opts.common_options = @common_options.dup
       opts
     end
-
-  protected
-    def box_options=(opts)
-      @box_options = opts
-    end
-
-    def common_options=(opts)
-      @common_options = opts
-    end
-
-    def handlers=(opts)
-      @handlers = opts
-    end
   end
 
-private
+  protected
+
+  def box_options=(opts)
+    @box_options = opts
+  end
+
+  def common_options=(opts)
+    @common_options = opts
+  end
+
+  def handlers=(opts)
+    @handlers = opts
+  end
+
+  private
+
   # Default DialogOptions instance
   DefaultOptions = DialogOptions.new
 
-public
+  public
   # Configures default options for all dialogs
   #
   # Returns the DialogOptions instance, that is used as the default
@@ -122,29 +124,29 @@ public
   #    d.backtitle "Camelot!"
   #    d.no_shadow
   #  end
-  # 
-  def default_options
+  #
+  def self.default_options
     yield DefaultOptions if block_given?
     DefaultOptions
   end
-
 
   # Base-class for all dialog "widgets".
   #
   # Contains functionality common to all widgets, like the
   # handling of common options, assembling the command-line
   # and invoking the dialog command.
-  # 
+  #
   # Author: Martin Landers <elk@treibgut.net>
   class Base
 
     attr_reader :output
 
-  private
+    private
+
     # The command used to invoke dialog
     Dialog_cmd =  (`which dialog` || "/usr/bin/dialog").chomp
 
-  public
+    public
     # Initializes a dialog "widget".
     #
     # Does base initialization common to all widgets.
@@ -204,7 +206,7 @@ public
     # Gets the common options for the dialog.
     #
     # The options are stored as a hash mapping option names to value arrays
-    # or +nil+ if no value is associated with the option. 
+    # or +nil+ if no value is associated with the option.
     #
     # Returns a duplicate, so subclasses can use destructive
     # array operations like <<.
@@ -251,7 +253,7 @@ public
     end
 
     # Waits for the user to close/cancel the dialog.
-    # 
+    #
     # That is, waits for the dialog program to return.
     # Returns self. Use the ok?, cancel?, etc. predicates
     # to determine exit status, like this:
@@ -300,13 +302,13 @@ public
     # Use this method if you only want to use the dialog classes as
     # fancy string builders and need to invoke the dialog program
     # yourself. Note, that the arguments will be returned as an array
-    # to avoid quoting problems, and will not include the actual 
+    # to avoid quoting problems, and will not include the actual
     # command used to invoke dialog program, only the commandline options.
     def commandline_arguments
       collect_options
     end
 
-  protected
+    protected
 
     # Asynchronously invokes the dialog command
     #
@@ -319,28 +321,27 @@ public
     # Collects all the options into an options string suitable for dialog(1)
     def collect_options
       opts = []
+
       common_options.each do |option,value|
-	opts << "--#{option}"
-        unless value.nil? || value.empty?
-          value = [value].flatten 
-	  opts += value
-        end
+        opts << "--#{option}" unless value.nil? || value.empty?
+        value = [value].flatten
+        opts += value
       end
+
       opts << box_type
       opts += box_options
-      opts.map {|o| o.to_s }
-   end
- end
+      opts.map(&:to_s)
+    end
+  end
 
- # Used to signal exceptions when invoking dialog
- class DialogError < RuntimeError
-   def initialize(args)
-     @args = args
-   end
-   
-   def to_s
-     "dialog has reported an error\n#{super}\narguments: #{@args.inspect}\n" 
-   end
- end
+  # Used to signal exceptions when invoking dialog
+  class DialogError < RuntimeError
+    def initialize(args)
+      @args = args
+    end
 
+    def to_s
+      "dialog has reported an error\n#{super}\narguments: #{@args.inspect}\n"
+    end
+  end
 end
