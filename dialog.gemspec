@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
     It does away with the manual command-line fiddling, allowing ruby programs operating in a commandline-environment to comfortably obtain user input. \
     Ncurses dialogs the easy way!
   DESC
-  s.authors     = ['Martin Landers']
-  s.email       = 'elk@treibgut.net'
+  s.authors     = ['Martin Landers', 'Mavenlink']
+  s.email       = ['elk@treibgut.net', 'dev+fork+dialog@mavenlink.com']
   s.files       = ['lib/dialog.rb']
   s.homepage    = 'http://rubygems.org/gems/dialog'
   s.license     = 'MIT'
