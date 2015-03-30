@@ -9,6 +9,7 @@ module Dialog
   Cancel = No = 1
   Help = 2
   Extra = 3
+  Escape = 255
   Error = -1
 
   # Base class collecting common options and handlers for a dialog
@@ -187,6 +188,11 @@ module Dialog
       @exitstatus == Help
     end
 
+    # Predicate, testing if the dialog was left using the Help button
+    def escape?
+      @exitstatus == Escape
+    end
+
     # Gets the fixed-position box options
     #
     # Returns a duplicate, so subclasses can use destructive
@@ -274,7 +280,7 @@ module Dialog
       @exitstatus = status.exitstatus
       @output = @stderr.read
 
-      if @exitstatus == 255
+      if @exitstatus == Escape || @exitstatus == Error
         # Raise an exception if dialog printed an error message
         # If not, the user just exited the dialog using ESC
         raise DialogError.new(commandline_arguments), @output unless @output.empty?
