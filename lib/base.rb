@@ -329,9 +329,9 @@ module Dialog
       opts = []
 
       common_options.each do |option,value|
-        opts << "--#{option}" unless value.nil? || value.empty?
+        opts << "--#{option}"
         value = [value].flatten
-        opts += value
+        opts += value unless value.nil? || value.empty?
       end
 
       opts << box_type
